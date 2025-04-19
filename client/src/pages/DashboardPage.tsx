@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { 
   Container, 
   Typography, 
-  Box, 
-  Grid, 
+  Box,
   CircularProgress,
   FormControl,
   InputLabel,
@@ -180,8 +179,8 @@ const DashboardPage = () => {
               Filter Dashboard Data
             </Typography>
             
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={3}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <FormControl fullWidth size="small">
                   <InputLabel id="state-filter-label">State</InputLabel>
                   <Select
@@ -200,9 +199,9 @@ const DashboardPage = () => {
                     ))}
                   </Select>
                 </FormControl>
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <FormControl fullWidth size="small">
                   <InputLabel id="roof-type-filter-label">Roof Type</InputLabel>
                   <Select
@@ -221,9 +220,9 @@ const DashboardPage = () => {
                     ))}
                   </Select>
                 </FormControl>
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <TextField
                   fullWidth
                   label="Start Date"
@@ -235,9 +234,9 @@ const DashboardPage = () => {
                     shrink: true,
                   }}
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <TextField
                   fullWidth
                   label="End Date"
@@ -249,8 +248,8 @@ const DashboardPage = () => {
                     shrink: true,
                   }}
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
             
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
               <Button
@@ -284,26 +283,26 @@ const DashboardPage = () => {
         ) : (
           <>
             {/* Summary Cards */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
-              <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 4 }}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <SummaryCard
                   title="Total Projects"
                   value={totalProjects.toLocaleString()}
                   icon={<HomeWorkIcon fontSize="large" />}
                   color="primary.main"
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} sm={6} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <SummaryCard
                   title="Avg. Roof Size"
                   value={`${avgRoofSize.toLocaleString()} sq ft`}
                   icon={<SquareFootIcon fontSize="large" />}
                   color="secondary.main"
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} sm={6} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <SummaryCard
                   title="Est. Annual Savings"
                   value={`$${totalSavings.toLocaleString()}`}
@@ -311,9 +310,9 @@ const DashboardPage = () => {
                   icon={<SavingsIcon fontSize="large" />}
                   color="#4caf50"
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} sm={6} md={3}>
+              <Box sx={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <SummaryCard
                   title="Top Locations"
                   value={topLocations}
@@ -321,12 +320,12 @@ const DashboardPage = () => {
                   icon={<LocationOnIcon fontSize="large" />}
                   color="#ff9800"
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
             
             {/* Charts */}
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+              <Box sx={{ flex: '1 1 450px', minWidth: '300px' }}>
                 <BarChartCard
                   title="Projects by State"
                   data={projectsByState}
@@ -334,9 +333,9 @@ const DashboardPage = () => {
                   valueLabel="Number of Projects"
                   color="#1976d2"
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12} md={6}>
+              <Box sx={{ flex: '1 1 450px', minWidth: '300px' }}>
                 <BarChartCard
                   title="Average Roof Size by Type"
                   data={roofSizeByType}
@@ -344,9 +343,9 @@ const DashboardPage = () => {
                   valueLabel="Square Feet"
                   color="#4caf50"
                 />
-              </Grid>
+              </Box>
               
-              <Grid item xs={12}>
+              <Box sx={{ width: '100%', mt: 3 }}>
                 <LineChartCard
                   title="Monthly Projects Trend"
                   data={monthlyTrend}
@@ -357,8 +356,8 @@ const DashboardPage = () => {
                   color="#ff9800"
                   height={350}
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </>
         )}
       </Box>

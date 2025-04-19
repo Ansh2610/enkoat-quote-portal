@@ -3,7 +3,7 @@ import { CountByField, AvgRoofSizeByType, MonthlyTrend, QuoteStats } from '../ty
 // Format counts by field (state, roof type) for chart display
 export const formatCountsByField = (data: CountByField[], labelField = '_id'): { name: string; value: number }[] => {
   return data.map(item => ({
-    name: item[labelField],
+    name: (item as any)[labelField],
     value: item.count
   }));
 };
