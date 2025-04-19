@@ -12,13 +12,7 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" align="center">
-          {'© '}
-          {new Date().getFullYear()}
-          {' '}
-          <Link color="inherit" href="https://enkoat.com/">
-            EnKoat
-          </Link>
-          {' | IntelliKoat™ Quote Portal'}
+          Ansh Gopinath | EnKoat Submission
         </Typography>
       </Container>
     </Box>
