@@ -128,10 +128,13 @@ const DashboardPage = () => {
     setEndDateFilter('');
     fetchDashboardData();
   };
-
+  
   const handleExportData = () => {
-    // This would generate a PDF or CSV in a real application
-    alert('This feature would generate a report in the full application');
+    if (stats) {
+      downloadDashboardReport(stats);
+    } else {
+      setError('No data available to export. Please try again after data is loaded.');
+    }
   };
 
   // Calculate summary values
@@ -366,3 +369,7 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+
+function downloadDashboardReport(stats: QuoteStats) {
+  throw new Error('Function not implemented.');
+}
