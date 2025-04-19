@@ -14,13 +14,25 @@ const Header = () => {
             EnKoat Quote Portal
           </Typography>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button color="inherit" component={RouterLink} to="/">
+            <Button 
+              color="inherit" 
+              component={RouterLink} 
+              to="/"
+            >
               Home
             </Button>
-            <Button color="inherit" component={RouterLink} to="/quote">
+            <Button 
+              color="inherit" 
+              component={RouterLink} 
+              to="/quote"
+            >
               Submit Quote
             </Button>
-            <Button color="inherit" component={RouterLink} to="/dashboard">
+            <Button 
+              color="inherit" 
+              component={RouterLink} 
+              to="/dashboard"
+            >
               Dashboard
             </Button>
           </Box>

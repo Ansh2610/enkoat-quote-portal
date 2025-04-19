@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -36,11 +36,13 @@ function App() {
       <CssBaseline />
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/quote" element={<QuoteFormPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Routes>
+        <Container component="main" sx={{ py: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/quote" element={<QuoteFormPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Routes>
+        </Container>
         <Footer />
       </Router>
     </ThemeProvider>

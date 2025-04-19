@@ -36,7 +36,7 @@ import {
   getTopStates,
   getTopRoofTypes,
   calculateTotalEnergySavings
-} from '../utils/dashboardUtils';
+} from '../utlis/dashboardUtils';
 
 const DashboardPage = () => {
   const [stats, setStats] = useState<QuoteStats | null>(null);

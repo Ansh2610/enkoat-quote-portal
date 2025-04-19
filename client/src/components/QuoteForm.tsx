@@ -5,14 +5,12 @@ import {
   Button,
   TextField,
   MenuItem,
-  FormControl,
-  FormHelperText,
-  Grid,
-  Typography,
+  Stack,
   Paper,
   Alert,
   CircularProgress,
   InputAdornment,
+  Typography,
 } from '@mui/material';
 import { Quote, RoofType, US_STATES } from '../types';
 import { quoteService } from '../services/api';
@@ -49,7 +47,18 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
     setSubmitSuccess(false);
 
     try {
+      // For development, you can simulate a successful submission
+      // Comment out the actual API call and uncomment the mock response when working offline
+      
+      // UNCOMMENT THIS FOR ACTUAL API SUBMISSION:
       const response = await quoteService.createQuote(data);
+      
+      // MOCK RESPONSE FOR DEVELOPMENT (uncomment when working offline):
+      // const response = { 
+      //   success: true, 
+      //   data: { ...data, _id: 'mock-id-' + Date.now() }, 
+      //   message: 'Quote submitted successfully' 
+      // };
       
       if (response.success) {
         setSubmitSuccess(true);
@@ -65,38 +74,36 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
         );
       }
     } catch (error) {
-      setSubmitError('An unexpected error occurred. Please try again later.');
       console.error('Error submitting quote:', error);
+      setSubmitError('An unexpected error occurred. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        {submitSuccess && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            Quote submitted successfully!
-          </Alert>
-        )}
-        
-        {submitError && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {submitError}
-          </Alert>
-        )}
-        
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={3}>
-            {/* Contractor Information Section */}
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Contractor Information
-              </Typography>
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
+    <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+      {submitSuccess && (
+        <Alert severity="success" sx={{ mb: 3 }}>
+          Quote submitted successfully!
+        </Alert>
+      )}
+      
+      {submitError && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {submitError}
+        </Alert>
+      )}
+      
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={3}>
+          {/* Contractor Information Section */}
+          <Typography variant="h6">
+            Contractor Information
+          </Typography>
+          
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="contractorName"
                 control={control}
@@ -118,9 +125,9 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   />
                 )}
               />
-            </Grid>
+            </Box>
             
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="company"
                 control={control}
@@ -142,16 +149,16 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   />
                 )}
               />
-            </Grid>
-            
-            {/* Project Details Section */}
-            <Grid item xs={12} sx={{ mt: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Project Details
-              </Typography>
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
+            </Box>
+          </Box>
+          
+          {/* Project Details Section */}
+          <Typography variant="h6" sx={{ mt: 2 }}>
+            Project Details
+          </Typography>
+          
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="roofSize"
                 control={control}
@@ -181,9 +188,9 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   />
                 )}
               />
-            </Grid>
+            </Box>
             
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="roofType"
                 control={control}
@@ -206,9 +213,11 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   </TextField>
                 )}
               />
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
+            </Box>
+          </Box>
+          
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="city"
                 control={control}
@@ -230,9 +239,9 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   />
                 )}
               />
-            </Grid>
+            </Box>
             
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
               <Controller
                 name="state"
                 control={control}
@@ -255,57 +264,54 @@ const QuoteForm = ({ onSuccess }: QuoteFormProps) => {
                   </TextField>
                 )}
               />
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
-              <Controller
-                name="projectDate"
-                control={control}
-                rules={{ required: 'Project date is required' }}
-                render={({ field }) => (
-                  <DatePicker
-                    label="Project Date"
-                    value={field.value ? new Date(field.value) : null}
-                    onChange={(date) => field.onChange(date ? date.toISOString().split('T')[0] : null)}
-                    slotProps={{
-                      textField: {
-                        variant: 'outlined',
-                        fullWidth: true,
-                        error: !!errors.projectDate,
-                        helperText: errors.projectDate?.message,
-                      },
-                    }}
-                  />
-                )}
-              />
-            </Grid>
-            
-            {/* Submit Button Section */}
-            <Grid item xs={12} sx={{ mt: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button
+            </Box>
+          </Box>
+          
+          <Box sx={{ flex: '1 1 300px', minWidth: '250px' }}>
+            <Controller
+              name="projectDate"
+              control={control}
+              rules={{ required: 'Project date is required' }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Project Date"
+                  type="date"
                   variant="outlined"
-                  color="secondary"
-                  onClick={() => reset()}
-                  disabled={isSubmitting}
-                >
-                  Reset Form
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
-                >
-                  {isSubmitting ? 'Submitting...' : 'Submit Quote'}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </LocalizationProvider>
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={!!errors.projectDate}
+                  helperText={errors.projectDate?.message}
+                />
+              )}
+            />
+          </Box>
+          
+          {/* Submit Button Section */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => reset()}
+              disabled={isSubmitting}
+            >
+              Reset Form
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+              startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Quote'}
+            </Button>
+          </Box>
+        </Stack>
+      </form>
+    </Paper>
   );
 };
 

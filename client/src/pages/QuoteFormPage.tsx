@@ -1,11 +1,17 @@
-import { Container, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Container, Typography, Box, Alert } from '@mui/material';
 import QuoteForm from '../components/QuoteForm';
 import { Quote } from '../types';
 
 const QuoteFormPage = () => {
+  const navigate = useNavigate();
+
   const handleQuoteSuccess = (quote: Quote) => {
     console.log('Quote submitted successfully:', quote);
-    // Could add additional success handling here
+    // Navigate to the dashboard after successful submission
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 2000); // Wait 2 seconds to show the success message before redirecting
   };
 
   return (
